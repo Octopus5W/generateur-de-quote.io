@@ -2,9 +2,6 @@ let intro = document.getElementById('intro');
 let quote = document.getElementById('quote');
 let author = document.getElementById('author');
 
-let generation = document.getElementById('generation');
-
-
 function generator() {
     fetch("https://breaking-bad-quotes.herokuapp.com/v1/quotes")
         .then(res => {
@@ -37,10 +34,9 @@ function favorite() {
             //envoie dans le localStorage
             localStorage.setItem('quote' + cpt, quote.innerHTML);
             localStorage.setItem('author' + cpt, author.innerHTML);
-            oneTimeaffFavorite--;
         } else {
-            localStorage.setItem('quote' + cpt, quote.innerHTML);
-            localStorage.setItem('author' + cpt, author.innerHTML);
+            localStorage.setItem('quote' + cpt, document.getElementById('quote').textContent);
+            localStorage.setItem('author' + cpt, document.getElementById('author').textContent);
         }
         //incrémentation
         cpt++;
@@ -52,6 +48,7 @@ function favorite() {
 let oneTimeaffFavorite = 0;
 
 function affFavorite() { // affiche et suprrime les favorites en fonction des ajoutes
+    console.log(oneTimeaffFavorite + " " + oneTimeFavorite + " " + cpt)
     if (oneTimeFavorite == 1 && oneTimeaffFavorite == 0) { // sécurité pour n'afficher qu'une seule fois
         for (i = cpt; i > 0; i--) {
             // initialisation des variables de capture du localStorage
@@ -73,7 +70,7 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
             document.getElementById("droite").appendChild(addPAuthor);
             oneTimeaffFavorite++;
         }
-    } else if (oneTimeFavorite == 1) {
+    } else if (oneTimeFavorite == 1 && cpt == 1) {
 
     } else {
         let noFavorite = document.createElement('p');
@@ -82,3 +79,6 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
         document.getElementById("droite").appendChild(noFavorite);
     }
 }
+
+console.log(localStorage.length)
+console.log(localStorage[localStorage.length - 1])
