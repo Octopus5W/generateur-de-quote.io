@@ -23,21 +23,16 @@ function generator() {
 
 //compteur pour incrémentation du localStorage 
 // && compteur si l'user n'a cliqué que sur Favori à son entrée sur le site
-let cpt = 0;
+// partagé en 2 car 2storage
+let cpt = localStorage.length / 2;
 
 let oneTimeFavorite = 0;
-
 // fonction d'ajout au localStorage/favori par un bouton 
 function favorite() {
     if (oneTimeFavorite == 0) { // sécurité pour n'afficher qu'une seule fois
-        if (cpt != 0) {
-            //envoie dans le localStorage
-            localStorage.setItem('quote' + cpt, quote.innerHTML);
-            localStorage.setItem('author' + cpt, author.innerHTML);
-        } else {
-            localStorage.setItem('quote' + cpt, document.getElementById('quote').textContent);
-            localStorage.setItem('author' + cpt, document.getElementById('author').textContent);
-        }
+        //envoie dans le localStorage
+        localStorage.setItem('quote' + cpt, quote.innerHTML);
+        localStorage.setItem('author' + cpt, author.innerHTML);
         //incrémentation
         cpt++;
         oneTimeFavorite++;
@@ -46,11 +41,12 @@ function favorite() {
 
 
 let oneTimeaffFavorite = 0;
+let sectionContener = document.getElementById("droite");
 
 function affFavorite() { // affiche et suprrime les favorites en fonction des ajoutes
-    console.log(oneTimeaffFavorite + " " + oneTimeFavorite + " " + cpt)
-    if (oneTimeFavorite == 1 && oneTimeaffFavorite == 0) { // sécurité pour n'afficher qu'une seule fois
-        for (i = cpt; i > 0; i--) {
+    myRemoveChild();
+    if (localStorage.length >= 0) { // sécurité pour n'afficher qu'une seule fois
+        for (i = cpt; i >= 0; i--) {
             // initialisation des variables de capture du localStorage
             let quoteLS = localStorage.getItem('quote' + i);
             let authorLS = localStorage.getItem('author' + i);
@@ -58,21 +54,22 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
             // création d'un paragraphe pour afficher la quote
             let addPQuote = document.createElement('p');
             addPQuote.class = "quote";
+            addPQuote.id = "quote" + i;
             addPQuote.textContent = quoteLS;
 
             // création d'un paragraphe pour afficher l'auteur
             let addPAuthor = document.createElement('p');
             addPAuthor.class = "author";
+            addPAuthor.class = "author" + i;
             addPAuthor.textContent = authorLS;
 
             //affichage des quotes et auteurs
-            document.getElementById("droite").appendChild(addPQuote);
-            document.getElementById("droite").appendChild(addPAuthor);
+            sectionContener.appendChild(addPQuote);
+            sectionContener.appendChild(addPAuthor);
             oneTimeaffFavorite++;
         }
-    } else if (oneTimeFavorite == 1 && cpt == 1) {
-
     } else {
+        //gestion d'erreur aucun favori
         let noFavorite = document.createElement('p');
         noFavorite.class = "quote";
         noFavorite.textContent = "Tu n'as pas de favori";
@@ -80,14 +77,17 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
     }
 }
 
-
+// supprime le local storage
 function supFavorite() {
-    localStorage.clear()
+
+    myRemoveChild();
+    localStorage.clear();
+    cpt = localStorage.length;
 }
 
-
-
-
-
-console.log(localStorage.length)
-console.log(localStorage[localStorage.length - 1])
+//supprime le contenu de section (id=droite)
+function myRemoveChild() {
+    while (sectionContener.firstChild) {
+        sectionContener.removeChild(sectionContener.firstChild);
+    }
+}
