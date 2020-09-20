@@ -80,5 +80,14 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
     }
 }
 
+
+function supFavorite() {
+    localStorage.clear()
+}
+
+
+
+
+
 console.log(localStorage.length)
 console.log(localStorage[localStorage.length - 1])
