@@ -31,6 +31,7 @@ let oneTimeFavorite = 0;
 function favorite() {
     if (oneTimeFavorite == 0) { // sécurité pour n'afficher qu'une seule fois
         //envoie dans le localStorage
+        
         localStorage.setItem('quote' + cpt, quote.innerHTML);
         localStorage.setItem('author' + cpt, author.innerHTML);
         //incrémentation
@@ -43,7 +44,7 @@ function favorite() {
 let oneTimeaffFavorite = 0;
 let sectionContener = document.getElementById("droite");
 
-function affFavorite() { // affiche et suprrime les favorites en fonction des ajoutes
+function affFavorite() { // affiche et supprime les favorites en fonction des ajoutes
     myRemoveChild();
     if (localStorage.length > 0) { // sécurité pour n'afficher qu'une seule fois
         for (i = cpt; i >= 0; i--) {
