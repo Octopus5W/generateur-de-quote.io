@@ -42,7 +42,7 @@ function favorite() {
 
 
 let oneTimeaffFavorite = 0;
-let sectionContener = document.getElementById("droite");
+let Contener = document.getElementById("droite");
 
 function affFavorite() { // affiche et supprime les favorites en fonction des ajoutes
     myRemoveChild();
@@ -61,12 +61,12 @@ function affFavorite() { // affiche et supprime les favorites en fonction des aj
             // création d'un paragraphe pour afficher l'auteur
             let addPAuthor = document.createElement('p');
             addPAuthor.class = "author";
-            addPAuthor.class = "author" + i;
+            addPAuthor.id = "author" + i;
             addPAuthor.textContent = authorLS;
 
             //affichage des quotes et auteurs
-            sectionContener.appendChild(addPQuote);
-            sectionContener.appendChild(addPAuthor);
+            Contener.appendChild(addPQuote);
+            Contener.appendChild(addPAuthor);
             oneTimeaffFavorite++;
         }
     } else{
@@ -87,7 +87,7 @@ function supFavorite() {
 
 //supprime le contenu de section (id=droite)
 function myRemoveChild() {
-    while (sectionContener.firstChild) {
-        sectionContener.removeChild(sectionContener.firstChild);
+    while (Contener.firstChild) {
+       Contener.removeChild(Contener.firstChild);
     }
 }
