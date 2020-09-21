@@ -45,7 +45,7 @@ let sectionContener = document.getElementById("droite");
 
 function affFavorite() { // affiche et suprrime les favorites en fonction des ajoutes
     myRemoveChild();
-    if (localStorage.length >= 0) { // sécurité pour n'afficher qu'une seule fois
+    if (localStorage.length > 0) { // sécurité pour n'afficher qu'une seule fois
         for (i = cpt; i >= 0; i--) {
             // initialisation des variables de capture du localStorage
             let quoteLS = localStorage.getItem('quote' + i);
@@ -68,7 +68,7 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
             sectionContener.appendChild(addPAuthor);
             oneTimeaffFavorite++;
         }
-    } else {
+    } else{
         //gestion d'erreur aucun favori
         let noFavorite = document.createElement('p');
         noFavorite.class = "quote";
@@ -79,7 +79,6 @@ function affFavorite() { // affiche et suprrime les favorites en fonction des aj
 
 // supprime le local storage
 function supFavorite() {
-
     myRemoveChild();
     localStorage.clear();
     cpt = localStorage.length;
